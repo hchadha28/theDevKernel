@@ -1,7 +1,9 @@
 # The Dev Kernel
 
-Welcome to The Dev Kernel, a personal tech blog dedicated to exploring the "deep questions" in software development. This blog moves beyond surface-level syntax to explore the core concepts that separate good developers from great ones.
+Welcome to The Dev Kernel, a personal tech blog dedicated to exploring the "deep questions" in software development. 
+This blog isn't about how to use a framework. It's about why it exists in the first place.
 
+We go beyond the syntax to find the concepts developers usually miss.
 ---
 
 ## 🚀 Tech Stack
