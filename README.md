@@ -1,62 +1,44 @@
-# Astro Starter Kit: Blog
+# The Dev Kernel
 
-```sh
-npm create astro@latest -- --template blog
-```
+Welcome to The Dev Kernel, a personal tech blog dedicated to exploring the "deep questions" in software development. 
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> This blog isn't about *how* to use a framework. It's about **why it exists** in the first place.
+> We go beyond the syntax to find the **concepts developers usually miss**.
+---
 
-Features:
+## 🚀 Tech Stack
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+This project is built using a modern, performant, and content-focused stack:
 
-## 🚀 Project Structure
+* **Framework:** [Astro](https://astro.build/) (Static Site Generator)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Content:** Local Markdown / MDX (`src/content/blog/`)
+* **Deployment:** [Netlify](https://www.netlify.com/)
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+## 🛠️ Currently Running Locally
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/hchadha28/theDevKernel.git](https://github.com/hchadha28/theDevKernel.git)
+    cd theDevKernel
+    ```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+3.  **Start the dev server:**
+    ```bash
+    npm run dev
+    ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+The site will be available in a few weeks.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 📝 Adding a New Post
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+To create a new blog post, simply add a new `.md` or `.mdx` file to the `src/content/blog/` directory. The project is configured to automatically turn these files into new pages on the blog.
