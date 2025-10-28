@@ -7,7 +7,7 @@
 :root {
     /* --- T3 "PURPLE" THEME --- */
     --accent: #f0f4ef;            /* Vibrant purple */
-    --accent-dark: #b4cded;        /* Darker purple for hover/active */
+    --accent-dark: #8db1df;        /* Darker purple for hover/active */
     --primary-bg: #0d1821;        /* T3 main dark background */
     --secondary-bg: #344966;      /* T3 card/code background */
 

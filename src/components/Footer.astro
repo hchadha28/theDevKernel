@@ -41,8 +41,14 @@ const today = new Date();
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
+    /* THIS IS THE FIX:
+      1. Changed padding to 0 on left/right to match your new `main` style.
+      2. Removed the 'background' gradient.
+      3. Added a 'border-top' to match your homepage separators.
+    */
+		padding: 2em 0 6em 0;
+    border-top: 1px solid var(--secondary-bg);
+
 		color: rgb(var(--gray));
 		text-align: center;
 	}

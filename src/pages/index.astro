@@ -36,7 +36,7 @@ const posts = (await getCollection('blog')).sort(
       <div class="hero-mission" style="border-top: 1px solid var(--secondary-bg); border-bottom: 1px solid var(--secondary-bg); padding: 2.5rem 0;">
         <h2 style="margin-top: 0; margin-bottom: 1rem; color: var(--accent);">My Philosophy</h2>
         <p style="font-size: 1.25rem; color: rgb(var(--gray)); margin: 0;">
-        This blog isn't about <em>how</em> to use a framework. It's about <em>why it exists</em> in the first place. This is my attempt to go beyond the syntax to explore the <strong>first principles</strong>, the core, the fundamentals that we usually miss.
+        This blog isn't about <em>how</em> to use a framework. It's about <em>why it exists</em> in the first place. This is my attempt to go beyond the syntax to explore the <em>first principles</em>, the core, the fundamentals that we usually miss.
           <br /></p>
       </div>
 
@@ -79,7 +79,7 @@ const posts = (await getCollection('blog')).sort(
 			<div class="post-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
 				{
 					posts.map((post) => (
-						<a href={`/blog/${post.slug}/`} class="revolving-card">
+						<a href={`/blog/${post.id}/`} class="revolving-card">
 							
               <h4 class="title" style="margin-bottom: 0.5rem; font-size: 1.75rem;">
 								{post.data.title}
