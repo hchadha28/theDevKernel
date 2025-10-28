@@ -60,9 +60,9 @@ body {
 }
 main {
     width: 720px;
-    max-width: calc(100% - 2em);
+    max-width: calc(100% - 0em);
     margin: auto;
-    padding: 3em 1em;
+    padding: 3em 0em;
 }
 h1,
 h2,
@@ -70,7 +70,7 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0 0;
     color: rgb(var(--black)); /* Now points to our new light heading color */
     line-height: 1.2;
 }
@@ -247,7 +247,7 @@ hr {
 }
 .revolving-card:hover::before {
   /* Show the revolving glow */
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 /* 5. This ensures your text & images are on top */

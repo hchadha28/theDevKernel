@@ -1,8 +1,18 @@
 ---
+// --- Default Imports ---
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// --- New Imports for Blog Posts ---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// --- Get All Posts ---
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.valueOf()
+);
 ---
 
 <!doctype html>
@@ -13,37 +23,78 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
+			<div class="hero-intro" style="margin-bottom: 2rem;">
+				<h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
+					Don't just learn
+					<span style="color: var(--accent);">how.</span>
+					<br />
+					Let's understand
+					<span style="color: var(--accent);">why.</span>
+				</h1>
+			</div>
+
+      <div class="hero-mission" style="border-top: 1px solid var(--secondary-bg); border-bottom: 1px solid var(--secondary-bg); padding: 2.5rem 0;">
+        <h2 style="margin-top: 0; margin-bottom: 1rem; color: var(--accent);">My Philosophy</h2>
+        <p style="font-size: 1.25rem; color: rgb(var(--gray)); margin: 0;">
+        This blog isn't about <em>how</em> to use a framework. It's about <em>why it exists</em> in the first place. This is my attempt to go beyond the syntax to explore the <strong>first principles</strong>, the core, the fundamentals that we usually miss.
+          <br /></p>
+      </div>
+
+      <div class="hero-note" style="margin-top: 2.5rem;">
+        <h2 style="margin-top: 0; margin-bottom: 1rem;">My Motivation</h2>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          I'm on this journey right alongside you. When I first learned to fetch data, I understood <em>how</em> to use <code>fetch('/api/user')</code>. I knew the syntax.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          But I had so many questions:
+        </p>
+
+        <ul style="font-size: 1.1rem; color: rgb(var(--gray)); margin-bottom: 1.5rem; list-style-type: disc; padding-left: 2em;">
+          <li>
+            Why was HTTP designed to be <em>stateless</em>? </li><li>Why did that one decision force an entire industry to invent solutions like cookies and tokens just to build a simple shopping cart?
+          </li>
+          <li>
+            What was so broken about <em>HTTP/1.1 </em> that it required a total redesign with <em>HTTP/2</em>?
+          </li>
+          <li>
+			What was there before HTTP?</li><li> Which problem did HTTP solve? </li><li>How did information transfer happen before it?
+          </li>
+          <li>
+			Why this? Why that? Why?
+          </li>
+        </ul>
+
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          This blog is my process of answering those "why" questions. It's not about re-learning frameworks, it's about connecting the dots on the work we're <em>already</em> doing.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          If you're the kind of person who also asks "why," I hope you'll find these posts helpful. Enjoy the read.
+        </p>
+      </div>
+
+      <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--secondary-bg);">
+        All Posts
+      </h2>
+
+			<div class="post-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+				{
+					posts.map((post) => (
+						<a href={`/blog/${post.slug}/`} class="revolving-card">
+							
+              <h4 class="title" style="margin-bottom: 0.5rem; font-size: 1.75rem;">
+								{post.data.title}
+							</h4>
+							
+              <p style="font-size: 0.9rem; color: var(--gray); margin: 0;">
+								<FormattedDate date={post.data.pubDate} />
+							</p>
+
+						</a>
+					))
+				}
+			</div>
+
+      </main>
 		<Footer />
 	</body>
 </html>
