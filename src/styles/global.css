@@ -6,10 +6,10 @@
 
 :root {
     /* --- T3 "PURPLE" THEME --- */
-    --accent: #a260f8;            /* Vibrant purple */
-    --accent-dark: #8f4de6;        /* Darker purple for hover/active */
-    --primary-bg: #111018;        /* T3 main dark background */
-    --secondary-bg: #1f1e29;      /* T3 card/code background */
+    --accent: #f0f4ef;            /* Vibrant purple */
+    --accent-dark: #b4cded;        /* Darker purple for hover/active */
+    --primary-bg: #0d1821;        /* T3 main dark background */
+    --secondary-bg: #344966;      /* T3 card/code background */
 
     /* --- Remapped Text Colors (for dark mode) --- */
     --black: 249, 250, 251;      /* Headings: Was black, now light gray (gray-50) */
@@ -23,7 +23,7 @@
     --box-shadow: 4px 4px 0 0 var(--accent);
     
     /* This variable is no longer used, but we'll keep it */
-    --gray-gradient: rgba(var(--gray-light), 50%), #111018;
+    --gray-gradient: rgba(var(--gray-light), 50%), #0d1821;
 }
 @font-face {
     font-family: "Atkinson";
@@ -247,7 +247,7 @@ hr {
 }
 .revolving-card:hover::before {
   /* Show the revolving glow */
-  opacity: 0.4;
+  opacity: 0.2;
 }
 
 /* 5. This ensures your text & images are on top */
