@@ -11,7 +11,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 // --- Get All Posts ---
 const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.valueOf()
 );
 ---
 
@@ -19,13 +19,24 @@ const posts = (await getCollection('blog')).sort(
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        
+      
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-duotone-sea.min.css" integrity="sha512-uEfqz8yEVto3O7e1yu9u2Ij38I86i0oVP94rWxW4X1GEyNhYo14CYmo5j7mHQX/J9XSXVklxDQISYNStBfml0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+          
+        <style>
+          :not(pre) > code[class*="language-"] {
+            padding: .2em .3em;
+            border-radius: .3em;
+            white-space: normal;
+          }
+        </style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<div class="hero-intro" style="margin-bottom: 2rem;">
 				<h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
-					Let's look beyond the 
+					Let's look beyond the 
 					<span style="color: var(--accent);">how.</span>
 					</br>
 					And understand the
@@ -33,59 +44,70 @@ const posts = (await getCollection('blog')).sort(
 				</h1>
 			</div>
 
-      <div class="hero-mission" style="border-top: 1px solid var(--secondary-bg); border-bottom: 1px solid var(--secondary-bg); padding: 2.5rem 0;">
-        <h2 style="margin-top: 0; margin-bottom: 1rem; color: var(--accent);">My Philosophy</h2>
-        <p style="font-size: 1.25rem; color: rgb(var(--gray)); margin: 0;">
-        This blog isn't about <em>how</em> to use a framework. It's about <em>why it exists</em> in the first place. This is my attempt to go beyond the syntax to explore the <em>first principles</em>, the core, the fundamentals that we usually miss.
-          <br /></p>
-      </div>
+      <div class="hero-mission" style="border-top: 1px solid var(--secondary-bg); border-bottom: 1px solid var(--secondary-bg); padding: 2.5rem 0;">
+        <h2 style="margin-top: 0; margin-bottom: 1rem; color: var(--accent);">My Philosophy</h2>
+        <p style="font-size: 1.25rem; color: rgb(var(--gray)); margin: 0;">
+        This blog isn't about <em>how</em> to use a framework. It's about <em>why it exists</em> in the first place. This is my attempt to go beyond the syntax to explore the <em>first principles</em>, the core, the fundamentals that we usually miss.
+          <br /></p>
+      </div>
 
-      <div class="hero-note" style="margin-top: 2.5rem;">
-        <h2 style="margin-top: 0; margin-bottom: 1rem;">My Motivation</h2>
-        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
-          I'm on this journey right alongside you. When I first learned to fetch data, I understood <em>how</em> to use <code>fetch('/api/user')</code>. I knew the syntax.
-        </p>
-        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
-          But I had so many questions:
-        </p>
+      <div class="hero-note" style="margin-top: 2.5rem;">
+        <h2 style="margin-top: 0; margin-bottom: 1rem;">My Motivation</h2>
 
-        <ul style="font-size: 1.1rem; color: rgb(var(--gray)); margin-bottom: 1.5rem; list-style-type: disc; padding-left: 2em;">
-          <li>
-            Why was HTTP designed to be <em>stateless</em>? </li><li>Why did that one decision force an entire industry to invent solutions like cookies and tokens just to build a simple shopping cart?
-          </li>
-          <li>
-            What was so broken about <em>HTTP/1.1 </em> that it required a total redesign with <em>HTTP/2</em>?
-          </li>
-          <li>
-			What was there before HTTP?</li><li> Which problem did HTTP solve? </li><li>How did information transfer happen before it?
-          </li>
-          <li>
-			Why this? Why that? Why?
-          </li>
-        </ul>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          I'm on this journey right alongside you. When I first learned to fetch data, I understood <em>how</em> to use 
+          <code class="language-javascript">fetch('/api/user')</code>. 
+          I knew the syntax. It felt like a simple, powerful tool.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          But then I tried to build something <em>real</em>. A simple shopping cart.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          I'd 
+          <code class="language-javascript">fetch('/api/cart/add', ...)</code> 
+          and it worked. Then I'd click to another page, 
+          <code class="language-javascript">fetch('/api/cart/items', ...)</code>
+           and the cart was empty. I couldn't understand. Why didn't the server remember me from one request to the next?
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          That's when I fell down the rabbit hole. I learned that my simple <code>fetch</code> command was just a layer on top of a protocol called <strong>HTTP</strong>, and that HTTP was intentionally designed to be <strong>stateless</strong>. It <em>forgets</em> you instantly, by design.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          Suddenly, just knowing the <em>syntax</em> wasn't enough. I realized that to solve my "empty cart" problem, I had to understand the very foundation I was building on. That one frustrating discovery unlocked a thousand questions:
+        </p>
 
-        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
-          This blog is my process of answering those "why" questions. It's not about re-learning frameworks, it's about connecting the dots on the work we're <em>already</em> doing.
-        </p>
-        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
-          If you're the kind of person who also asks "why," I hope you'll find these posts helpful. Enjoy the read.
-        </p>
-      </div>
+        <ul style="font-size: 1.1rem; color: rgb(var(--gray)); margin-bottom: 1.5rem; list-style-type: disc; padding-left: 2em;">
+          <li>What was there before HTTP?</li>
+          <li>Which problem did HTTP solve?</li>
+          <li>How did information transfer happen before it?</li>
+          <li>Why was HTTP designed to be <strong>stateless</strong>?</li>
+          <li>Why did that one decision force an entire industry to invent solutions like cookies and tokens just to build a simple shopping cart?</li>
+          <li>What was so broken about <em>HTTP/1.1</em> that it required a total redesign with <em>HTTP/2</em>?</li>
+          <li>Why this? Why that? Why?</li>
+        </ul>
 
-      <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--secondary-bg);">
-        All Posts
-      </h2>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          This blog is my process of answering those "why" questions. It's not about re-learning frameworks, it's about connecting the dots on the work we're <em>already</em> doing.
+        </p>
+        <p style="font-size: 1.1rem; color: rgb(var(--gray));">
+          If you're the kind of person who also asks "why," I hope you'll find these posts helpful. Enjoy the read.
+        </p>
+    </div>
+
+      <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--secondary-bg);">
+        All Posts
+      </h2>
 
 			<div class="post-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
 				{
 					posts.map((post) => (
 						<a href={`/blog/${post.id}/`} class="revolving-card">
 							
-              <h4 class="title" style="margin-bottom: 0.5rem; font-size: 1.75rem;">
+              <h4 class="title" style="margin-bottom: 0.5rem; font-size: 1.75rem;">
 								{post.data.title}
 							</h4>
 							
-              <p style="font-size: 0.9rem; color: var(--gray); margin: 0;">
+  _         <p style="font-size: 0.9rem; color: var(--gray); margin: 0;">
 								<FormattedDate date={post.data.pubDate} />
 							</p>
 
@@ -94,7 +116,16 @@ const posts = (await getCollection('blog')).sort(
 				}
 			</div>
 
-      </main>
+    </main>
 		<Footer />
+
+        <script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"
+          is:inline
+        ></script>
+        <script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+          is:inline
+        ></script>
 	</body>
 </html>
