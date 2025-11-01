@@ -1,8 +1,3 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  ...
-  MODIFIED FOR "T3" PURPLE THEME
- */
 
 :root {
     /* --- T3 "PURPLE" THEME --- */
@@ -14,14 +9,14 @@
     /* --- Remapped Text Colors (for dark mode) --- */
     --black: 249, 250, 251;      /* Headings: Was black, now light gray (gray-50) */
     --gray-dark: 229, 231, 235;  /* Main Text: Was dark gray, now light gray (gray-200) */
-    --gray: 156, 163, 175;       /* Sub-Text: Was medium gray, now light gray (gray-400) */
-    
+    --gray: 175, 180, 190;       /* Sub-text: slightly lighter gray */
+
     /* --- Remapped Background Colors (for dark mode) --- */
     --gray-light: 31, 30, 41;    /* Code BG: Was light gray, now dark T3 secondary */
-    
+
     /* --- Box Shadow (T3 Style) --- */
     --box-shadow: 4px 4px 0 0 var(--accent);
-    
+
     /* This variable is no longer used, but we'll keep it */
     --gray-gradient: rgba(var(--gray-light), 50%), #0d1821;
 }
@@ -44,14 +39,14 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-    
+
     /* --- BODY BACKGROUND CHANGED --- */
     background: var(--primary-bg); /* Was: linear-gradient(var(--gray-gradient)) */
 
     background-size: 100% 600px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    
+
     /* --- BODY TEXT COLOR CHANGED --- */
     color: rgb(var(--gray-dark)); /* Now points to our new light gray */
 
@@ -250,8 +245,75 @@ hr {
   opacity: 0.1;
 }
 
-/* 5. This ensures your text & images are on top */
 .revolving-card > * {
   position: relative;
   z-index: 2;
 }
+
+
+/* Blog post / prose colors — force light text for posts */
+.prose,
+article,
+.post-content {
+    font-family: "Atkinson", sans-serif; /* same as homepage */
+    font-size: 20px;                     /* same as homepage */
+    line-height: 1.7;                    /* same as homepage */
+    color: rgb(var(--gray));        /* match homepage text color */
+    
+    max-width: 920px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3em 0;
+    box-sizing: border-box;
+}
+
+.prose p,
+article p,
+.post-content p {
+    color: rgb(var(--gray)); /* paragraph text same as homepage */
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    color: rgb(var(--black)); /* headings (keeps bright heading tone) */
+    font-family: "Atkinson", sans-serif;
+    line-height: 1.2;
+}
+
+.prose a {
+    color: var(--accent-dark);
+    text-decoration: underline;
+}
+.prose a:hover {
+    color: var(--accent);
+}
+
+.prose code,
+.prose pre {
+    color: rgb(var(--black));
+    background: rgb(var(--gray-light));
+    border: 1px solid var(--secondary-bg);
+}
+
+.prose blockquote {
+    color: rgb(var(--black));
+    background: rgba(52, 73, 102, 0.06);
+    border-left: 4px solid var(--accent-dark);
+    padding: 0.75rem 1rem;
+}
+
+@media (max-width: 720px) {
+  .prose,
+  article,
+  .post-content {
+    padding: 1em 0;
+    font-size: 18px; /* match body mobile size */
+  }
+}
+
