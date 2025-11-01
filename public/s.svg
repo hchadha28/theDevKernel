@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Browser window outline with dark navy fill INSIDE -->
+  <rect x="8" y="12" width="48" height="40" rx="5" fill="#0A192F" stroke="white" stroke-width="3"/>
+  
+  <!-- Top control dots -->
+  <circle cx="17" cy="19" r="2.2" fill="white"/>
+  <circle cx="24" cy="19" r="2.2" fill="white"/>
+  <circle cx="31" cy="19" r="2.2" fill="white"/>
+  
+  <!-- Light blue bar inside the window -->
+  <rect x="20" y="33" width="28" height="5" rx="2.5" fill="#00C6FF"/>
+</svg>

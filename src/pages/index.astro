@@ -4,7 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-
+import NewsletterForm from '../components/NewsletterForm.astro'
 // --- New Imports for Blog Posts ---
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -96,10 +96,8 @@ const posts = (await getCollection('blog')).sort(
         </p>
     </div>
 
-      <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--secondary-bg);">
-        All Posts
-      </h2>
-
+      
+<!--
 			<div class="post-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
 				{
 					posts.map((post) => (
@@ -116,8 +114,12 @@ const posts = (await getCollection('blog')).sort(
 						</a>
 					))
 				}
-			</div>
-
+			</div> 
+-->
+	<h2 style="margin-top: 3rem; margin-bottom: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--secondary-bg);">
+        Subscribe to newsletter
+      </h2>
+		<NewsletterForm />
     </main>
 		<Footer />
 
