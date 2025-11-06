@@ -1,102 +1,299 @@
-<div class="newsletter-container">
-    <form class="newsletter-form" action="#" method="POST">
-        <h3>Get the latest posts delivered straight to your inbox.</h3>
-        
-        <div class="input-group">
-            <input 
-                type="email" 
-                name="email" 
-                placeholder="your@email.com" 
-                required
-                aria-label="Email address"
-            />
-            <button type="submit">Subscribe</button>
-        </div>
-        
-        <small>I'll never share your email. Unsubscribe at any time.</small>
-    </form>
+---
+// This is our "Smart Form" component.
+// It's a full mini-application that handles all 4 states.
+---
+
+<!-- 
+  This HTML structure is designed for our script.
+  We have different "state" divs that we will show/hide.
+-->
+<div class="newsletter-container" id="newsletter-form-container">
+  
+  <!-- STATE 1: IDLE (The Default Form) -->
+  <form class="newsletter-form" id="newsletter-form">
+    <h3>Get the latest posts delivered straight to your inbox.</h3>
+    <div class="input-group">
+      <input
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        required
+        aria-label="Email address"
+      />
+      <button type="submit" id="newsletter-button">Subscribe</button>
+    </div>
+    <small>I'll never share your email. Unsubscribe at any time.</small>
+    <!-- This is where error messages will appear (State 4) -->
+    <p id="newsletter-error" class="error-message" role="alert" aria-live="assertive"></p>
+  </form>
+
+  <!-- STATE 2: SUBMITTING (Handled by disabling the button) -->
+  
+  <!-- STATE 3: SUCCESS (Post-Submit) -->
+  <div id="newsletter-success" class="form-message" hidden>
+    <h3>✅ Success! Check your email to verify.</h3>
+    <p>Please check your inbox (and spam folder) for a verification link.</p>
+  </div>
+
+  <!-- STATE 4: VERIFIED (Post-Email-Click) -->
+  <div id="newsletter-verified" class="form-message" hidden>
+    <h3>✅ Thank you! Your email has been verified.</h3>
+    <p>You're all set to receive the next post.</p>
+  </div>
+
 </div>
 
+
+<!-- 
+  This is the "brain" of our component.
+  `client:load` tells Astro to send this script to the user's browser.
+  
+  *** THE FINAL FIX IS HERE: ALL `as` KEYWORDS ARE GONE. ***
+  This is 100% plain JavaScript.
+-->
+<script client:load>
+  // This is a "client-side" script that runs in the user's browser.
+  
+  // 1. Get all the HTML elements we need to control
+  const form = document.getElementById('newsletter-form');
+  const button = document.getElementById('newsletter-button');
+  const errorMessage = document.getElementById('newsletter-error');
+  const successMessage = document.getElementById('newsletter-success');
+  const verifiedMessage = document.getElementById('newsletter-verified');
+
+  /**
+   * This is our "State Machine". It's a function that
+   * shows/hides the correct UI for each of our 4 states.
+   */
+  function setFormState(
+    state, // state can be: 'idle', 'submitting', 'success', 'verified'
+    message = '' // This is for error messages
+  ) {
+    // Start by resetting everything
+    if (form) form.hidden = true;
+    if (successMessage) successMessage.hidden = true;
+    if (verifiedMessage) verifiedMessage.hidden = true;
+    
+    // We get the button, but with NO TypeScript 'as'
+    const btn = button; 
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+
+    if (errorMessage) {
+      errorMessage.textContent = '';
+      errorMessage.hidden = true;
+    }
+
+    // Now, apply the *new* state
+    if (state === 'idle') {
+      if (form) form.hidden = false;
+    } 
+    else if (state === 'submitting') {
+      if (form) form.hidden = false;
+      if (btn) {
+        btn.disabled = true; // State 2
+        btn.textContent = 'Submitting...';
+      }
+    } 
+    else if (state === 'success') {
+      if (successMessage) successMessage.hidden = false; // State 3
+    } 
+    else if (state === 'verified') {
+      if (verifiedMessage) verifiedMessage.hidden = false; // State "Verified"
+    }
+
+    // If we passed in an error message, show it (State 4)
+    if (message) {
+      if (form) form.hidden = false; // Show the form again so they can retry
+      if (errorMessage) {
+        errorMessage.textContent = message;
+        errorMessage.hidden = false;
+      }
+    }
+  }
+
+  /**
+   * HANDLER 1: Check the URL when the page loads
+   * This handles the `?verified=true` redirect from our 'api/verify.ts'
+   */
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    
+    if (params.get('verified') === 'true') {
+      setFormState('verified');
+      window.history.replaceState({}, '', window.location.pathname);
+    } 
+    else if (params.get('error')) {
+      setFormState('idle', '❌ Verification failed. Please try subscribing again.');
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    else {
+      setFormState('idle');
+    }
+  });
+
+  /**
+   * HANDLER 2: Handle the form submission
+   * This "hijacks" the form and calls our API.
+   */
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Stop the page from reloading! This is key.
+      
+      setFormState('submitting'); // Show the "Submitting..." state
+
+      // We use the `form` variable we got at the top.
+      // No `e.target` and NO `as`. This is plain, safe JS.
+      const formData = new FormData(form); 
+      
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setFormState('idle', `❌ ${data.message || 'An error occurred.'}`);
+        } else {
+          setFormState('success');
+        }
+      } catch (err) {
+        setFormState('idle', '❌ A network error occurred. Please try again.');
+      }
+    });
+  } else {
+    console.error('Newsletter form element not found! This is a bug in NewsletterForm.astro.');
+  }
+</script>
+
+
+<!-- 
+  Your original styles will still work!
+-->
 <style>
+  /* Your original styles */
+  .newsletter-container {
+    width: 920px;
+    max-width: calc(100% - 0em);
+    margin: 3em auto 1.2 em;
+    padding: 2em;
+    background: var(--secondary-bg);
+    border-radius: 4px;
+    border: 1px solid rgba(240, 244, 239, 0.1);
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .newsletter-form h3 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  input[type="email"] {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: var(--primary-bg);
+    border: 1px solid rgba(240, 244, 239, 0.2);
+    border-radius: 4px;
+    color: rgb(var(--black));
+    font-size: 1rem;
+  }
+
+  input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  button {
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--primary-bg);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background: var(--accent-dark);
+  }
+
+  small {
+    color: rgb(var(--gray));
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 720px) {
     .newsletter-container {
-        width: 920px;
-        max-width: calc(100% - 0em);
-        margin: 3em auto 1.2 em;
-        padding: 2em;
-        background: var(--secondary-bg);
-        border-radius: 4px;
-        border: 1px solid rgba(240, 244, 239, 0.1); /* subtle border using accent color */
-    }
-
-    .newsletter-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .newsletter-form h3 {
-        color: var(--accent);
-        font-size: 1.5rem;
-        margin: 0;
-        text-align: center;
-        line-height: 1.4;
+      padding: 1.5rem;
+      margin: 2rem auto;
     }
 
     .input-group {
-        display: flex;
-        gap: 0.75rem;
-        width: 100%;
-        max-width: 600px;
-    }
-
-    input[type="email"] {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        background: var(--primary-bg);
-        border: 1px solid rgba(240, 244, 239, 0.2);
-        border-radius: 4px;
-        color: rgb(var(--black));
-        font-size: 1rem;
-    }
-
-    input[type="email"]:focus {
-        outline: none;
-        border-color: var(--accent);
+      flex-direction: column;
     }
 
     button {
-        padding: 0.75rem 1.5rem;
-        background: var(--accent);
-        color: var(--primary-bg);
-        border: none;
-        border-radius: 4px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
+      width: 100%;
     }
+  }
 
-    button:hover {
-        background: var(--accent-dark);
-    }
+  /* --- NEW STYLES for our states --- */
+  
+  /* This styles the "Submitting..." state */
+  button:disabled {
+    background: var(--gray); /* A neutral "disabled" color */
+    cursor: not-allowed;
+  }
 
-    small {
-        color: rgb(var(--gray));
-        font-size: 0.875rem;
-    }
+  /* This styles the Success and Verified messages */
+  .form-message {
+    text-align: center;
+    padding: 2rem 0; /* Add some padding so it doesn't look cramped */
+  }
+  .form-message h3 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  .form-message p {
+    color: rgb(var(--gray));
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
 
-    @media (max-width: 720px) {
-        .newsletter-container {
-            padding: 1.5rem;
-            margin: 2rem auto;
-        }
+  /* This styles the Error message */
+  .error-message {
+    color: #ff5555; /* A bright, clear red for errors */
+    font-size: 0.875rem;
+    text-align: center;
+    margin: 0;
+    /* This reserves space for one line of text, so the form doesn't "jump" */
+    min-height: 1.25em; 
+  }
 
-        .input-group {
-            flex-direction: column;
-        }
-
-        button {
-            width: 100%;
-        }
-    }
+  /* This hides the <p> tag by default */
+  .error-message[hidden] {
+    display: none;
+  }
 </style>
