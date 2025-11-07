@@ -4,3 +4,4 @@ todo :
 3. switch to brevo from mailtrap 
 4. add posts, about me section 
 5. go live and deploy on netlify 
+

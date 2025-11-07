@@ -31,8 +31,8 @@
   
   <!-- STATE 3: SUCCESS (Post-Submit) -->
   <div id="newsletter-success" class="form-message" hidden>
-    <h3>✅ Success! Check your email to verify.</h3>
-    <p>Please check your inbox (and spam folder) for a verification link.</p>
+    <h3>✅ Verification link sent!</h3>
+    <h3>Please check your inbox for a verification link.</h3>
   </div>
 
   <!-- STATE 4: VERIFIED (Post-Email-Click) -->
@@ -156,7 +156,7 @@
 
         const data = await response.json();
 
-        if (!response.ok) {
+        if (!response.ok) { 
           setFormState('idle', `❌ ${data.message || 'An error occurred.'}`);
         } else {
           setFormState('success');
@@ -281,7 +281,22 @@
     font-size: 1rem;
     margin-top: 0.5rem;
   }
-
+  #newsletter-success h3{
+    color: #55fc5bff; /* A bright, clear red for errors */
+    font-size: 0.875rem;
+    text-align: center;
+    margin: 0;
+    /* This reserves space for one line of text, so the form doesn't "jump" */
+    min-height: 1.25em; 
+  }
+  #newsletter-verified h3{
+    color: #55fc5bff; /* A bright, clear red for errors */
+    font-size: 0.875rem;
+    text-align: center;
+    margin: 0;
+    /* This reserves space for one line of text, so the form doesn't "jump" */
+    min-height: 1.25em; 
+  }
   /* This styles the Error message */
   .error-message {
     color: #ff5555; /* A bright, clear red for errors */
