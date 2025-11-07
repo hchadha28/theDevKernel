@@ -61,8 +61,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
     
     // --- 3. Create Token and Save User ---
-    const token = generateToken();
-    const hashedToken = hashToken(token);
+    const token = generateToken(); // Generate random token
+    const hashedToken = hashToken(token); // Hash it for storage
     
     const newSubscriber: Omit<Subscriber, 'id' | 'created_at'> = {
       email,
@@ -70,7 +70,10 @@ export const POST: APIRoute = async ({ request }) => {
       verified: false,
       unsubscribed: false,
     };
-
+    
+    console.log("Plain token generated:", token);
+    console.log("Hashed token stored in DB:", hashedToken);
+    
     // 'upsert' means: "try to INSERT this user. If a user with this
     // email already exists, UPDATE them with this new data instead."
     // This handily overwrites their old, unverified token with a fresh one.
@@ -84,11 +87,11 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // --- 4. Send Verification Email (to Mailtrap) ---
-    // We build the full URL our user will click in their email
-    const verificationUrl = `${env.PUBLIC_SITE_URL}/api/verify?token=${token}`;
+    // IMPORTANT: Pass only the TOKEN, not the full URL
+    // The sendVerificationEmail function will build the URL itself
+    await sendVerificationEmail(email, token);
     
-    // We send the PLAIN token in the email (the "key")
-    await sendVerificationEmail(email, verificationUrl);
+    console.log("✅ Verification email sent with token:", token);
     
     // --- 5. Send Success Response ---
     // We tell the frontend form "It worked!"
