@@ -1,7 +1,7 @@
 ---
 title: "From Waiting to Instant: The Story Behind Vite's Speed"
 description: "Learn how browser evolution reshaped web development—from why Create React App was once essential to how Vite was born to harness modern browser capabilities."
-pubDate: 'Nov 10 2024'
+pubDate: 'Nov 10 2025'
 heroImage: '../../assets/blog-placeholder-4.jpg'
 ---
 

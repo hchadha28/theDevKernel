@@ -254,7 +254,7 @@ hr {
 /* Blog post / prose colors — force light text for posts */
 /* Add these new rules to your main CSS file */
 
-/* Styles for your post list on index.astro */
+
 .post-card {
     /* Add any styles for the card/link container here */
     /* e.g., text-decoration: none; display: block; */
