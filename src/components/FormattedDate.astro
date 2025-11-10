@@ -1,17 +1,27 @@
 ---
 interface Props {
-	date: Date;
+	date: Date | undefined;
 }
 
 const { date } = Astro.props;
+
+console.log('FormattedDate received:', date, typeof date);
+
+if (!date) {
+	console.error('FormattedDate: date is undefined!');
+}
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
-</time>
+{date ? (
+	<time datetime={date.toISOString()}>
+		{
+			date.toLocaleDateString('en-us', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+			})
+		}
+	</time>
+) : (
+	<time>No date</time>
+)}

@@ -84,13 +84,13 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<li>
-							<a href={`/blog/${post.id}/`} class="revolving-card">
+							<a href={`/blog/${post.id}/`} class="revolving-card post-card">
 							
-							<h4 class="title" style="margin-bottom: 0.5rem; font-size: 1.75rem;">
+							<h4 class="title post-title">
 												{post.data.title}
 											</h4>
 											
-							<p style="font-size: 0.9rem; color: var(--gray); margin: 0;">
+							<p class="post-date">
 												<FormattedDate date={post.data.pubDate} />
 											</p>
 

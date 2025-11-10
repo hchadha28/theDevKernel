@@ -9,7 +9,13 @@ import '../styles/global.css';
 
 type Props = CollectionEntry<'blog'>['data'];
 
+console.log('BlogPost Astro.props:', Astro.props);
+
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+console.log('Destructured values:', { title, description, pubDate, updatedDate, heroImage });
+console.log('pubDate type:', typeof pubDate);
+console.log('pubDate value:', pubDate);
 ---
 
 <html lang="en">

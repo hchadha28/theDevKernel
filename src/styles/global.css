@@ -9,7 +9,7 @@
     /* --- Remapped Text Colors (for dark mode) --- */
     --black: 249, 250, 251;      /* Headings: Was black, now light gray (gray-50) */
     --gray-dark: 229, 231, 235;  /* Main Text: Was dark gray, now light gray (gray-200) */
-    --gray: 175, 180, 190;       /* Sub-text: slightly lighter gray */
+    --gray: 220, 223, 230;       /* Sub-text: slightly lighter gray */
 
     /* --- Remapped Background Colors (for dark mode) --- */
     --gray-light: 31, 30, 41;    /* Code BG: Was light gray, now dark T3 secondary */
@@ -169,16 +169,16 @@ hr {
   REVOLVING GRADIENT CARD
 =====================================================
 */
-
+/* 
 /* 1. Defines the "revolve" animation */
-@keyframes revolve {
+/* @keyframes revolve {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 /* 2. This is the new card class you will use */
 .revolving-card {
@@ -248,18 +248,38 @@ hr {
 .revolving-card > * {
   position: relative;
   z-index: 2;
-}
+} 
 
 
 /* Blog post / prose colors — force light text for posts */
-.prose,
-article,
-.post-content {
-    font-family: "Atkinson", sans-serif; /* same as homepage */
-    font-size: 20px;                     /* same as homepage */
-    line-height: 1.7;                    /* same as homepage */
-    color: rgb(var(--gray));        /* match homepage text color */
-    
+/* Add these new rules to your main CSS file */
+
+/* Styles for your post list on index.astro */
+.post-card {
+    /* Add any styles for the card/link container here */
+    /* e.g., text-decoration: none; display: block; */
+}
+
+.post-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+    color: var(--black); /* Or whatever your default heading color is */
+}
+
+.post-date {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin: 0;
+}
+/*
+  STYLES FOR BLOG POST CONTENT (e.g., [slug].astro)
+  Updated to match the style of your index.astro
+*/
+.prose, article, .post-content {
+    font-family: "Atkinson", sans-serif;
+    font-size: 1.1rem; /* Matches index.astro <p> */
+    line-height: 1.7;
+    color: rgb(var(--gray)); /* MODIFIED: Matches index.astro <p> color */
     max-width: 920px;
     width: 100%;
     margin: 0 auto;
@@ -267,45 +287,108 @@ article,
     box-sizing: border-box;
 }
 
-.prose p,
-article p,
-.post-content p {
-    color: rgb(var(--gray)); /* paragraph text same as homepage */
+.prose p, article p, .post-content p {
+    color: rgb(var(--gray)); /* MODIFIED: Matches index.astro <p> color */
     font-size: inherit;
     line-height: inherit;
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-    color: rgb(var(--black)); /* headings (keeps bright heading tone) */
+/* This rule sets the common styles for all headings */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: rgb(var(--black)); /* Lightest gray for headings */
     font-family: "Atkinson", sans-serif;
     line-height: 1.2;
+    font-weight: normal; /* ADDED: Prevents headings from being bold */
 }
+
+/* --- MODIFIED FONT SIZE RULES --- */
+.prose h1 {
+    font-size: 3rem; /* MODIFIED: Matches index.astro h1 */
+    margin-bottom: 1.5rem; /* Added: Matches index.astro h1 */
+}
+
+.prose h2 {
+    font-size: 2.0rem; /* Other smaller headings size */
+    margin-top: 2.5rem; /* Added: Matches index.astro .hero-note h2 */
+    margin-bottom: 1rem; /* Added: Matches index.astro .hero-note h2 */
+}
+
+.prose h3, .prose h4, .prose h5, .prose h6 {
+    font-size: 1.75rem; /* Smaller heading */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+/* --- END MODIFIED RULES --- */
 
 .prose a {
-    color: var(--accent-dark);
+    color: var(--accent); /* Use accent color for links */
     text-decoration: underline;
 }
+
 .prose a:hover {
-    color: var(--accent);
+    color: var(--accent-dark); /* Darker accent on hover */
 }
 
-.prose code,
+/* Style for code blocks (pre) */
 .prose pre {
-    color: rgb(var(--black));
-    background: rgb(var(--gray-light));
-    border: 1px solid var(--secondary-bg);
+    background: rgb(var(--gray-light)); /* Dark background for code blocks */
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.prose pre code {
+    background: transparent; /* No double background */
+    padding: 0;
+    color: rgb(var(--gray-dark));
+}
+
+/* Inline code styling */
+.prose :not(pre) > code {
+    background: rgb(var(--gray-light)); /* Dark background for inline code */
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent); /* Accent color for inline code */
 }
 
 .prose blockquote {
-    color: rgb(var(--black));
-    background: rgba(52, 73, 102, 0.06);
+    color: rgb(var(--gray-dark)); /* Light text */
+    background: rgba(52, 73, 102, 0.3); /* Semi-transparent secondary bg */
     border-left: 4px solid var(--accent-dark);
     padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+}
+
+/* Lists */
+.prose ul, .prose ol {
+    color: rgb(var(--gray)); /* MODIFIED: Matches index.astro ul */
+    padding-left: 2em; /* MODIFIED: Matches index.astro ul */
+    margin-bottom: 1.5rem; /* MODIFIED: Matches index.astro ul */
+}
+
+.prose li {
+    color: rgb(var(--gray)); /* MODIFIED: Matches index.astro li */
+}
+
+/* Strong/Bold text */
+.prose strong {
+    /* MODIFIED: Removed color: var(--accent) to match index.astro's default bold */
+    color: inherit; 
+    font-weight: 600;
+}
+
+/* Emphasis/Italic text */
+.prose em {
+    color: rgb(var(--gray));
+}
+
+/* Horizontal rules */
+.prose hr {
+    border: none;
+    border-top: 1px solid var(--secondary-bg);
+    margin: 2rem 0;
 }
 
 @media (max-width: 720px) {
@@ -313,7 +396,6 @@ article p,
   article,
   .post-content {
     padding: 1em 0;
-    font-size: 18px; /* match body mobile size */
+    font-size: 18px; /* FIXED: Was 'px' */
   }
 }
-
