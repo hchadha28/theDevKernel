@@ -273,7 +273,6 @@ hr {
 }
 /*
   STYLES FOR BLOG POST CONTENT (e.g., [slug].astro)
-  Updated to match the style of your index.astro
 */
 .prose, article, .post-content {
     font-family: "Atkinson", sans-serif;
